@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+.venv/
+.env
+*.log
+
+# Jupyter / VSCode
+.ipynb_checkpoints/
+.vscode/
+*.code-workspace
+
+# Excel temporales
+~$*.xls*
+*.bak
+*.tmp
+
+# Sistema
+.DS_Store
+Thumbs.db

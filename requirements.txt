@@ -1,0 +1,6 @@
+xlwings
+pandas
+numpy
+matplotlib
+prophet
+cmdstanpy

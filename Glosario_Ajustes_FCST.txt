@@ -1,0 +1,64 @@
+# Glosario de Ajustes de Usuario — FCST
+
+Este glosario explica cada parámetro configurable en la hoja de Excel (columna A:B).
+
+### 1. `weekly seasonality`
+- **Opciones**: True / False
+- **Efecto**: activa la estacionalidad semanal. Útil si las ventas varían según el día/semana.
+
+### 2. `yearly seasonality`
+- **Opciones**: True / False
+- **Efecto**: activa la estacionalidad anual. Útil si hay picos en meses específicos cada año.
+
+### 3. `periods`
+- **Valor numérico** (ej. 12)
+- **Efecto**: número de pasos futuros a pronosticar. Si `freq = W`, son semanas; si `M`, meses.
+
+### 4. `freq`
+- **Opciones**: W (semanal), M (mensual)
+- **Efecto**: define la granularidad del forecast.
+
+### 5. `sensibility` (changepoint prior scale)
+- **Valor numérico** (ej. 0.3, 0.8, 1.0)
+- **Efecto**: controla qué tan sensible es el modelo a cambios de tendencia.
+  - Bajo → forecast más suave, menos sensible.
+  - Alto → forecast más reactivo a cambios bruscos.
+
+### 6. `output_mode`
+- **Opciones**: resumen / productos / ambos
+- **Efecto**: decide si se genera solo la hoja de Resumen, solo por Producto, o las dos.
+
+### 7. `growth_mode`
+- **Opciones**: none / manual / momentum / yoy / cagr / blend
+- **Efecto**:
+  - `none` → sin ajuste de crecimiento.
+  - `manual` → aplica porcentaje fijo (`growth_pct`).
+  - `momentum` → compara promedio últimas N semanas contra histórico.
+  - `yoy` → compara mismo periodo vs año pasado.
+  - `cagr` → tasa compuesta anual (tendencia de largo plazo).
+  - `blend` → mezcla de momentum + yoy.
+
+### 8. `growth_pct`
+- **Valor numérico** (ej. 0.05 = 5%)
+- **Efecto**: porcentaje de crecimiento usado si `growth_mode = manual`.
+
+### 9. `momentum_window`
+- **Valor numérico** (ej. 8)
+- **Efecto**: número de semanas/meses recientes usados en `momentum`, `yoy`, `cagr` o `blend`.
+
+### 10. `min_growth_default`
+- **Valor numérico** (ej. 0.05)
+- **Efecto**: piso mínimo de crecimiento si el cálculo resulta negativo.
+
+### 11. `apply_growth`
+- **Opciones**: per_product / total
+- **Efecto**:
+  - `per_product` → ajusta cada producto individualmente.
+  - `total` → ajusta solo el forecast agregado.
+
+---
+
+## Recomendaciones prácticas
+- Para pruebas rápidas: usar `freq = W`, `periods = 12`, `sensibility = 0.8`.
+- En escenarios de negocio: aplicar `growth_mode = blend` con `momentum_window = 8`.
+- Usar `min_growth_default = 0.05` para evitar pronósticos con caída excesiva.
